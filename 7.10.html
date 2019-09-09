@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- 设计稿分为头部，中间的Banner，主导航，内容区域，底部
+		头部区域为100%宽的一个深色背景，头部中间有一块960px的定宽居中区域，里面包括了左边的Logo和右上角导航
+		Banner为100%宽的区块，中间右下方有banner轮显的当前图片数字的示例，其中正在显示的图片对应的数字有特殊样式（注意不需要实现轮显banner的业务逻辑，只是按照设计稿做静态样式）
+		主导航区域，有一个100%宽的灰色线条，线条之上，在中间960px区域是导航菜单，当前正在浏览页对应的菜单有特殊样式
+		主要内容区域，宽度为960px，里面每个内容都有至少80px的padding，每一个内容的宽度均为自适应，可以使用flex布局 -->
+		<style>
+			html,
+			body {
+				margin: 0;
+				padding: 0;
+				width: 100%;
+				height: 100%;
+			}
+
+			#header {
+				height: 70px;
+				background-color: #333333;
+				width: 100%;
+			}
+
+			#head {
+				box-sizing: border-box;
+				width: 960px;
+				height: 100%;
+				margin: 0 auto;
+				background-color: #333333;
+				font-size: 25px;
+				color: white;
+			}
+
+			#atype {
+				width: 960px;
+				float: right;
+			}
+
+			a {
+				float: right;
+				display: block;
+				margin-left: 5px;
+				color: white;
+				font-size: 15px;
+			}
+
+			#Banner {
+				width: 100%;
+				height: 210px;
+				background-color: lightgreen;
+			}
+
+			.number {
+				list-style: none;
+				margin-right: 480px;
+			}
+
+			#Banner {
+				display: flex;
+				justify-content: flex-end;
+				align-items: flex-end;
+			}
+
+			.number>li {
+				float: left;
+			}
+			.number>li>span{
+				margin: 5px;
+				border: 1px solid #FFFFFF;
+				padding: 4px;
+				background-color: #FFFFFF;
+				opacity: 0.5;
+				font-size: 13px;
+			}
+			.nav{
+				list-style: none;
+				margin-bottom: 0;
+				border-bottom: 1px solid gainsboro; 
+				height: 50px;
+				margin-top: 0;
+			}
+			.nav li{
+				float: left;
+				height: 50px;
+				/* display: flex;
+				justify-content: center;
+				align-items: center; */
+			}
+			.nav>li>span{
+				box-sizing: border-box;
+				height: 40px;
+				width: 75px;
+				text-align: center;
+				margin-top:10px ;
+				display: block;
+				padding-top: 20px;
+				padding-right: 5px;
+				border: 1px solid #CCCCCC;
+				border-radius: 15px 15px 0 0;
+				line-height: 5px;
+				font-size: 12px;
+			}
+			#type_spa{
+				border-bottom: 1px solid white;
+				position: relative;
+				margin-top: 11px;	
+			}
+			#content{
+				display: flex;
+				flex-wrap: wrap;
+				
+			}
+			
+			.conType1{
+				box-sizing: border-box;
+				height: 220px;
+				width: 32%;
+				border: 1px solid #000000;
+				margin-right: 9px;
+				margin-bottom: 5px;
+				text-align: center;
+				line-height: 220px;
+			}
+			.conType2{
+				box-sizing: border-box;
+				height: 220px;
+				width: 24%;
+				border: 1px solid #000000;
+				margin-right: 6px;
+				margin-bottom: 5px;
+				text-align: center;
+				line-height: 220px;
+			}
+			.conType3{
+				box-sizing: border-box;
+				height: 220px;
+				width: 32%;
+				border: 1px solid #000000;
+				margin-right: 9px;
+				margin-bottom: 5px;
+				text-align: center;
+				line-height: 220px;
+			}
+			#content{
+				width: 100%;
+				margin-top: 5px;
+			}
+			#footer{
+				position: fixed;
+				width: 100%;
+				background-color: #000000;
+				color: white;
+				height: 100px;
+				margin-bottom: 0px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="header">
+			<div id="head">
+				<div id="atype">
+					<a href="#">Login</a>
+					<a href="#">Register</a>
+					<a href="#">Github</a>
+				</div>
+				<span>logo</span>
+			</div>
+		</div>
+		<div id="Banner">
+			<ul class="number">
+				<li><span>1</span></li>
+				<li><span>2</span></li>
+				<li><span>3</span></li>
+				<li><span>4</span></li>
+			</ul>
+		</div>
+		<div>
+			<ul class="nav">
+				<li><span id="type_spa">HOME</span></li>
+				<li><span>PROFIL</span></li>
+				<li><span>PROFIL</span></li>
+			</ul>
+		</div>
+		<div id="content">
+			<div class="conType1">Content1</div>
+			<div class="conType1">Content2</div>
+			<div class="conType1">Content3</div>
+			<div class="conType2">Content4</div>
+			<div class="conType2">Content5</div>
+			<div class="conType2">Content6</div>
+			<div class="conType2">Content7</div>
+			<div class="conType3">Content8</div>
+			<div class="conType3">Content9</div>
+			<div class="conType3">Content10</div>
+		</div>
+		<div id="footer">
+			2018.7.11
+		</div>
+	</body>
+</html>
