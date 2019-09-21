@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<input id="name" type="text">
+		<button id="submit-btn" value="xx">Submit</button>
+		<script>
+			/* 当点击按钮 submit-btn 时，在console中输出 name 中的内容
+				在输入过程中，如果按回车键，则同样执行上一条的需求
+				在输入过程中，如果按 ESC 键，则把输入框中的内容清空 */
+			let btn = document.querySelector("#submit-btn");
+			let outCon = document.querySelector("#name");
+			btn.addEventListener("click", function() {
+				console.log(outCon.value);
+			});
+			outCon.addEventListener("keydown", function(event) {
+				/* event.preventDefault(); */ //阻止默认动作
+				if (event.keyCode === 13) {
+					btn.click();
+				}
+			});
+			window.addEventListener("keydown", function(event) {
+
+				if (event.keyCode === 27) {
+					outCon.value = "";
+				}
+			});
+		</script>
+	</body>
+</html>

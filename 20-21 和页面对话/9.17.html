@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <meta charset="UTF-8">    
+    <title>IFE ECMAScript</title>
+    <style>
+       select {
+            display: none;
+        }
+    </style>
+</head>
+<body> 
+     <!-- 当用户选择了 School 的单选框时，显示 School 的下拉选项，隐藏 Company 的下拉选项
+     当用户选择了 School 的单选框时，显示 Company 的下拉选项，隐藏 School 的下拉选项  -->    
+    <label>
+        <input id="school" name="status" type="radio">
+        School
+    </label>
+    <label>
+        <input id="company" name="status" type="radio">
+        Company
+    </label>
+
+    <select id="school-select">        
+        <option>北京邮电大学</option>
+        <option>黑龙江大学</option>
+        <option>华中科技大学</option>
+    </select>
+
+    <select id="company-select">        
+        <option>百度</option>
+        <option>爱奇艺</option>        
+    </select>
+	<script>		
+		let schBtn=document.querySelector("#school");
+		let comBtn=document.querySelector("#company");
+		let schSel=document.querySelector("#school-select");
+		let conSel=document.querySelector("#company-select");
+		
+		function fx(){
+			schSel.style.cssText += ";display:block";
+			conSel.style.cssText = ";display:none";
+			/* schSel.style.display ="block";
+			conSel.style.display="none"; */
+		}
+		function fy(){
+			schSel.style.cssText += ";display:none";
+			conSel.style.cssText += ";display:block";
+			/* schSel.style.display ="none";
+			conSel.style.display="block"; */
+			
+		}
+		schBtn.addEventListener('click',fx);
+		comBtn.addEventListener('click',fy);
+
+	</script>
+</body>
+</html>

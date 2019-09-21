@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<meta charset="UTF-8">
+		<title>定时器淡入淡出</title>
+
+	</head>
+	<body>
+		<div id="fade-obj" style="width:300px;height:300px;background:#000"></div>
+		<button id="fade-btn">淡出</button>
+		<script>
+			let obj = document.getElementById("fade-obj");
+			let btn = document.getElementById("fade-btn");
+			btn.addEventListener('click', cs);
+			let a = 1;
+			let b = 0;
+			let i = 1;
+			let id;
+
+			function cs() {
+				if (this.textContent == "淡出") {
+					btn.disabled = true;
+					id = window.setInterval(al, 200);
+				} else if (this.textContent == "淡入") {
+					btn.disabled = true;
+					id = window.setInterval(al, 200);
+				}
+			}
+
+			function al() {
+				if (i == 1) {
+					obj.style.opacity = a - 0.1;
+					a = a - 0.1;
+					if (a < 0) {
+						window.clearInterval(id);
+						btn.disabled = false;
+						btn.textContent = "淡入";
+						a = 1;
+						i = 0;
+					}//控制图片淡出
+				} else if (i == 0) {
+					obj.style.opacity = b + 0.1;
+					b = b + 0.1;
+					if (b > 1) {
+						window.clearInterval(id);
+						btn.disabled = false;
+						btn.textContent = "淡出";
+						b = 0;
+						i = 1;
+
+					}
+				}//控制图片淡入
+			}
+		</script>
+	</body>
+</html>
