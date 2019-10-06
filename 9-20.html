@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div>
+			<label>Number A:<input id="radio-a" type="radio" name="math-obj" value="a"></label><input id="num-a" type="text">
+			<label>Number B:<input id="radio-b" type="radio" name="math-obj" value="b"></label><input id="num-b" type="text">
+		</div>
+		<div>
+			<button>判断当前选中的输入框输入内容是否为数字</button>
+			<button>把 A 四舍五入为 B 个小数位数的数字</button>
+			<button>当前选中数字的绝对值</button>
+			<button>对当前选中的数字进行上舍入</button>
+			<button>对当前选中的数字进行下舍入</button>
+			<button>把当前选中的数字四舍五入为最接近的整数</button>
+			<button>返回 A 和 B 中的最高值</button>
+			<button>返回 A 和 B 中的最低值</button>
+		</div>
+		<p id="result"></p>
+		<script>
+			let Btns = document.querySelectorAll("button");
+			let rdoa = document.getElementById("radio-a");
+			let rdob = document.getElementById("radio-b");
+			let na = document.getElementById("num-a");
+			let nb = document.getElementById("num-b");
+			let ti;
+			function t0(){
+				if (rdoa.checked) {
+					let vna = na.value;
+					ti = vna;
+				} else if (rdob.checked) {
+					let vnb = nb.value;
+					ti = vnb;
+				}
+			}
+			
+			Btns[0].onclick = function(){
+				t0();
+				t1(ti);
+}
+
+			function qinKong() {
+				if (rdoa.checked) {
+					nb.value = "";
+				} else if (rdob.checked) {
+					na.value = "";
+				}
+			}
+			window.setInterval(qinKong, 100);
+
+			function t1(ta) {
+				if (ta == "" || ta.indexOf(" ")!=-1) {
+					console.log("请输入正确内容");
+
+				} else if (isNaN(ta)) {
+					console.log("输入不为数字");
+				} else {
+					console.log("输入为数字");
+				}
+			}
+
+			Btns[1].onclick = function t2() {
+				let nav = na.value;
+				let nav1 = Number(nav);
+				let nbv = nb.value;
+				console.log(nav1.toFixed(nbv));
+			}
+
+			Btns[2].onclick = function(){
+				t0();
+				t3(ti);
+			}
+			function t3(tb) {
+				if (tb == "" || tb.indexOf(" ")!=-1) {
+					console.log("请输入正确内容");
+
+				} else if (isNaN(tb)) {
+					console.log("请输入数字");
+				} else {
+					console.log(Math.abs(tb));
+				}
+
+
+			}
+			Btns[3].onclick = function(){
+				t0();
+				t4(ti);
+			}
+			function t4(tb) {
+				if (tb == "" || tb.indexOf(" ")!=-1) {
+					console.log("请输入正确内容");
+
+				} else if (isNaN(tb)) {
+					console.log("请输入数字");
+				} else {
+					console.log(Math.ceil(tb));
+				}
+			}
+			Btns[4].onclick = function(){
+				t0();
+				t5(ti);
+			}
+			function t5(tb) {
+				if (tb == "" || tb.indexOf(" ") != -1) {
+					console.log("请输入正确内容");
+			
+				} else if (isNaN(tb)) {
+					console.log("请输入数字");
+				} else {
+					console.log(Math.floor(tb));
+				}
+			}
+			Btns[5].onclick = function(){
+				t0();
+				t6(ti);
+			}
+			function t6(tb) {
+				if (tb == "" || tb.indexOf(" ") != -1) {
+					console.log("请输入正确内容");
+			
+				} else if (isNaN(tb)) {
+					console.log("请输入数字");
+				} else {
+					console.log(Math.round(tb));
+				}
+			}
+			Btns[6].addEventListener('click',t7) 
+			function t7(){
+				let nav = Number(na.value);
+				let nbv =  Number(nb.value);
+				if(nav>nbv){console.log(nav);}
+				else{console.log(nbv);}
+				}
+			Btns[7].addEventListener('click',t8)
+				function t8(){
+					let nav = Number(na.value);
+					let nbv =  Number(nb.value);
+					if(nav>nbv){console.log(nbv);}
+					else{console.log(nav);}
+					}
+		</script>
+	</body>
+</html>
