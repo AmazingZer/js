@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		
+			<div>
+			    <label>String A:
+			        <input id="radio-a" type="radio"  name="str-obj" value="a">
+			    </label>
+			    <textarea id="str-a"></textarea>
+			    <label>String B:
+			        <input id="radio-b" type="radio" name="str-obj" value="b">
+			    </label>
+			    <textarea id="str-b"></textarea>        
+			    <label>Num A：<input id="num-a" type="number" value="0"></label>
+			    <label>Num B：<input id="num-b" type="number" value="1"></label>
+			</div>
+			<div>
+			    <button>获取当前选中输入的内容长度</button>
+			    <button>当前选中输入中的第3个字符</button>
+			    <button>把两个输入框的文字连接在一起输出（concat）</button>
+			    <button>输入B中的内容，在输入A的内容中第一次出现的位置（indexOf）</button>
+			    <button>输入A中的内容，在输入B的内容中最后一次出现的位置（lastIndexOf）</button>
+			    <button>使用slice获取选中输入框内容的部分内容，参数为num-a及num-b</button>
+			    <button>当前选中输入框的行数</button>
+			    <button>使用substr获取选中输入框内容的子字符串，参数为num-a及num-b</button>
+			    <button>把所选输入框中的内容全部转为大写</button>
+			    <button>把所选输入框中的内容全部转为小写</button>
+			    <button>把所选输入框中内容的半角空格全部去除</button>
+			    <button>把所选输入框中内容的a全部替换成另外一个输入框中的内容</button>
+			</div>
+			<p id="result"></p>
+			<script>
+			let btns=document.querySelectorAll("button");
+			let rda=document.getElementById("radio-a");
+			let rdb=document.getElementById("radio-b");
+			let stra=document.getElementById("str-a");
+			let strb=document.getElementById("str-b");
+			let tem;
+			
+			function ck(){
+				if(rda.checked){
+					tem=stra.value;
+					tbm=strb.value;
+				}
+				else if(rdb.checked){
+					tem=strb.value;
+					tbm=stra.value;
+				}
+			}
+			btns[5].onclick=function(){
+				ck();
+				console.log(tem.slice(2,4));
+			}	
+			btns[6].onclick=function(){
+				ck();
+				let re=/\r?\n|\r/;
+				console.log(tem.split(re).length)
+			}	
+			btns[7].onclick=function(){
+				ck();
+				console.log(tem.substring(2,4));
+			}  /* substring 提取从 indexStart 到 indexEnd（不包括）之间的字符。特别地：
+				如果 indexStart 等于 indexEnd，substring 返回一个空字符串。
+				如果省略 indexEnd，substring 提取字符一直到字符串末尾。
+				如果任一参数小于 0 或为 NaN，则被当作 0。
+				如果任一参数大于 stringName.length，则被当作 stringName.length。	 */
+				btns[8].onclick=function(){
+					ck();
+					console.log(tem.toUpperCase());
+				}
+				btns[9].onclick=function(){
+					ck();
+					console.log(tem.toLowerCase());
+				}
+				btns[11].onclick=function(){
+					ck();
+					
+					console.log(tem.replace(/a/g,tbm));
+				}///xx/g 加g表示全部替换
+				
+				</script>
+	</body>
+</html>
