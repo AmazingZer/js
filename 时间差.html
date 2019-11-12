@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="//libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+	</head>
+	<body>
+		<select id="year-select">
+
+		</select>
+
+		<select id="month-select">
+
+		</select>
+
+		<select id="day-select">
+
+		</select>
+
+		<select id="hour-select">
+
+		</select>
+
+		<select id="minite-select">
+
+		</select>
+
+		<select id="second-select">
+
+		</select>
+
+		<p id="result-wrapper">现在距离 2001年1月1日星期X HH:MM:SS 还有 X 天 X 小时 X 分 X 秒</p>
+		<script>
+			let obj, D, M, m, h, s, y, selectedDate;
+			let mon = document.getElementById("month-select");
+			let year = document.getElementById("year-select");
+
+			function t1() {
+				let sels = document.getElementsByTagName("select");
+				for (let i = 0; i < sels.length; i++) {
+					sels[i].addEventListener('change', jisuan);
+				}
+			};
+
+			let foo = function(num, nub) { //填充时,分,秒
+				let sel = document.getElementById(num);
+				for (let i = 0; i < nub; i++) {
+					let newOp = document.createElement("option");
+					if (i >= 0 && i < 10) {
+						let j = "0" + i;
+						newOp.innerHTML = j;
+					} else {
+						newOp.innerHTML = i;
+					}
+					newOp.value = i;
+					sel.appendChild(newOp);
+				}
+			}
+			let bar = function(num, nub) { //填充月和天数
+				let mon = document.getElementById(num);
+				let day = document.getElementById("day-select");
+				day.options.length = 0;
+				for (let i = 1; i < nub; i++) {
+					let newOp = document.createElement("option");
+					newOp.innerHTML = i;
+					newOp.value = i;
+					mon.appendChild(newOp);
+				}
+			}
+			let nian = function(num, nub) {
+				let year = document.getElementById(num);
+				for (let i = 2000; i < nub; i++) {
+					let newOp = document.createElement("option");
+					newOp.innerHTML = i;
+					newOp.value = i;
+					year.appendChild(newOp);
+				}
+			}
+
+			let tian = function() {
+				t1();
+				let ss = mon.selectedIndex;
+				let ex = +mon.options[ss].value;
+				let da = [1, 3, 5, 7, 8, 10, 12];
+				let xiao = [4, 6, 9, 11];
+				if (da.indexOf(ex) != -1) {
+					bar("day-select", 32);
+				} else if (xiao.indexOf(ex) != -1) {
+					bar("day-select", 31)
+				} else if (ex == 2) {
+					let yy = year.selectedIndex;
+					let yx = +year.options[yy].value;
+					if (yx % 4 == 0 && yx % 100 != 0 || yx % 400 == 0) {
+						bar("day-select", 30);
+					} else {
+
+						bar("day-select", 29);
+
+					}
+				}
+			}
+
+
+			function huoqu() {
+				obj = new Date();
+				D = obj.getDate(); //日(1-31)
+				y = obj.getFullYear(); //年
+				M = obj.getMonth() + 1; //月(0-11)
+				h = obj.getHours(); //小时(0-23)
+				m = obj.getMinutes(); //分钟(0-59)
+				s = obj.getSeconds(); //秒(0-59)				
+			}
+			setInterval(huoqu, 1000);
+
+			function huoqu1(num) {
+				let x1 = document.getElementById(num);
+				let x2 = x1.selectedIndex;
+				let x3 = +x1.options[x2].value;
+				return x3;
+
+			}
+
+			function huoqu2(num) {
+				let x1 = document.getElementById(num);
+				let x2 = x1.selectedIndex;
+				let x3 = x1.options[x2].innerHTML;
+				return x3;
+
+			}
+
+
+			function jisuan() {
+				let nowYear = huoqu1("year-select");
+				let nowMonth = huoqu1("month-select");
+				let nowDay = huoqu1("day-select");
+				let nowHour = huoqu1("hour-select");
+				let nowMinite = huoqu1("minite-select");
+				let nowSecond = huoqu1("second-select");
+				let nowHour1 = huoqu2("hour-select");
+				let nowMinite1 = huoqu2("minite-select");
+				let nowSecond1 = huoqu2("second-select");
+				let now = new Date();
+				selectedDate = new Date();
+				selectedDate.setFullYear(nowYear);
+				selectedDate.setMonth(nowMonth - 1);
+				selectedDate.setDate(nowDay);
+				selectedDate.setHours(nowHour);
+				selectedDate.setMinutes(nowMinite);
+				selectedDate.setSeconds(nowSecond);
+				xq();
+				let dayX = Math.floor((selectedDate - now) / (1000 * 60 * 60 * 24));
+				let hourX = Math.floor((selectedDate - now) / (1000 * 60 * 60) - (dayX * 24));
+				let miniteX = Math.floor((selectedDate - now) / (1000 * 60) - (dayX * 24 * 60 + hourX * 60));
+				let secondX = Math.floor((selectedDate - now) / 1000 - (dayX * 24 * 60 * 60 + hourX * 60 * 60 + miniteX * 60));
+				let dayY = Math.abs(Math.ceil((selectedDate - now) / (1000 * 60 * 60 * 24)));
+				let hourY = Math.abs(Math.ceil((selectedDate - now) / (1000 * 60 * 60) + (dayY * 24)));
+				let miniteY = Math.abs(Math.ceil((selectedDate - now) / (1000 * 60) + (dayY * 24 * 60 + hourY * 60)));
+				let secondY = Math.abs(Math.ceil((selectedDate - now) / 1000 + (dayY * 24 * 60 * 60 + hourY * 60 * 60 + miniteY *
+					60)));
+				if (selectedDate > now) {
+					$("#result-wrapper").html("现在距离" + nowYear + "年" + nowMonth + "月" + nowDay + "日星期" + i + " " + nowHour1 + ":" +
+						nowMinite1 + ":" + nowSecond1 + "还有" + dayX + "天" + hourX + "小时" + miniteX + "分" + secondX + "秒");
+				} else {
+					$("#result-wrapper").html("现在距离" + nowYear + "年" + nowMonth + "月" + nowDay + "日星期" + i + " " + nowHour1 + ":" +
+						nowMinite1 + ":" + nowSecond1 + "已经过去" + dayY + "天" + hourY + "小时" + miniteY + "分" + secondY + "秒");
+				}
+			}
+
+			function xq() {
+				let week = selectedDate.getDay();
+				switch (week) {
+					case 0:
+						i = "日";
+						break;
+					case 1:
+						i = "一";
+						break;
+					case 2:
+						i = "二";
+						break;
+					case 3:
+						i = "三";
+						break;
+					case 4:
+						i = "四";
+						break;
+					case 5:
+						i = "五";
+						break;
+					case 6:
+						i = "六";
+						break;
+				}
+				return i;
+			}
+
+			nian("year-select", 2031);
+			foo("minite-select", 60);
+			foo("hour-select", 24);
+			foo("second-select", 60);
+			bar("month-select", 13);
+			year.addEventListener('change', tian);
+			mon.addEventListener('change', tian);
+		</script>
+	</body>
+</html>

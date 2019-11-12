@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+
+	</head>
+	<body>
+		<p id="data"></p>
+		<p id="data2"></p>
+		<script>
+			/* console.log(y+"."+m+"."+d); */
+			function xq() {
+				let week = obj.getDay();
+				switch (week) {
+					case 0:
+						i = "星期日";
+						j = "Sunday";
+						break;
+					case 1:
+						i = "星期一";
+						j = "Monday";
+						break;
+					case 2:
+						i = "星期二";
+						j = "Tuesday";
+						break;
+					case 3:
+						i = "星期三";
+						j = "Wednesday";
+						break;
+					case 4:
+						i = "星期四";
+						j = "Thursday";
+						break;
+					case 5:
+						i = "星期五";
+						j = "Friday";
+						break;
+					case 6:
+						i = "星期六";
+						j = "Saturday";
+						break;
+				}
+				return i, j;
+			}
+
+			function b0(num) {
+				if (num < 10 && num >= 0) {
+					num = "0" + num;
+				}
+				return num;
+			}
+
+			function shuchu() {
+				xq();
+				let datetext = document.getElementById("data");
+				datetext.innerHTML = y + "年" + M0 + "月" + DD + "日" + " " + i + " " + HH + ":" + MM + ":" + SS;
+			}
+			let obj, D, M, m, h, s, y;
+			let MM, DD, M0, HH, SS;
+
+			function huoqu() {
+				obj = new Date();
+				D = obj.getDate(); //日(1-31)
+				y = obj.getFullYear(); //年
+				M = obj.getMonth() + 1; //月(0-11)
+				h = obj.getHours(); //小时(0-23)
+				m = obj.getMinutes(); //分钟(0-59)
+				s = obj.getSeconds(); //秒(0-59)
+				MM = b0(m);
+				DD = b0(D);
+				M0 = b0(M);
+				HH = b0(h);
+				SS = b0(s);
+			}
+			
+			function shuchu2() {
+				xq();
+				ap(h);
+				let datetext2 = document.getElementById("data2");
+				
+				datetext2.innerHTML = y + "-" + M0 + "-" + DD + " " + j + " " + HH + ":" + MM + ":" + SS + " " + k;
+			}
+
+			function ap(num) {
+				if (num >= 0 && num < 12) {
+					k = "AM";
+				} else {
+					k = "PM";
+				}
+				return k;
+			}
+			setInterval(huoqu, 1000);
+			setInterval(shuchu2, 1000);
+			setInterval(shuchu, 1000);
+			
+		</script>
+	</body>
+</html>
