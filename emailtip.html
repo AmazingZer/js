@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+
+		<script src="js/vue.js"></script>
+		<style>
+			.wrapper{
+				width: 182px;	
+			}
+			#email-input{
+				outline-color: #00B9F1;
+				padding-left: 5px;
+				
+				width: 173px;
+			}
+			#email-sug-wrapper{
+				margin: 0px;
+				padding-left:3px;
+				/* width: 179px; */
+				border: #00B9F1 1px solid;
+				display: none;
+				list-style: none;
+				box-sizing: border-box;
+				font-size: 12px;
+				overflow: hidden;
+			}
+			li
+		</style>
+	</head>
+	<body>
+		<div class="wrapper">
+			<input id="email-input" type="email" autofocus="autofocus">
+			<ul id="email-sug-wrapper" class="email-sug"></ul>
+		</div>
+
+		<script>
+			let postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
+			let sr = document.getElementById("email-input");
+			let ullist = document.getElementById("email-sug-wrapper");
+			let flags = 1;
+			let HtmlUtil = {
+				/*1.用浏览器内部转换器实现html转码*/
+				htmlEncode: function(html) {
+					//1.首先动态创建一个容器标签元素，如DIV
+					var temp = document.createElement("div");
+					//2.然后将要转换的字符串设置为这个元素的innerText(ie支持)或者textContent(火狐，google支持)
+					(temp.textContent != undefined) ? (temp.textContent = html) : (temp.innerText = html);
+					//3.最后返回这个元素的innerHTML，即得到经过HTML编码转换的字符串了
+					var output = temp.innerHTML;
+					temp = null;
+					return output;
+				},
+				/*2.用浏览器内部转换器实现html解码*/
+				htmlDecode: function(text) {
+					//1.首先动态创建一个容器标签元素，如DIV
+					var temp = document.createElement("div");
+					//2.然后将要转换的字符串设置为这个元素的innerHTML(ie，火狐，google都支持)
+					temp.innerHTML = text;
+					//3.最后返回这个元素的innerText(ie支持)或者textContent(火狐，google支持)，即得到经过HTML解码的字符串了。
+					var output = temp.innerText || temp.textContent;
+					temp = null;
+					return output;
+				}
+			};
+			let nowSelectTipIndex = 0;
+			sr.onkeyup = function(event) {
+				flags = 1;
+				if (ullist.getElementsByTagName("li")) {
+					let x = event.key;
+					if (x == "ArrowUp" || x == "ArrowDown" || x == "Enter") {
+						whatkey(x);
+					}
+
+				}
+
+				foo();
+				bar();
+			}
+
+			function whatkey(e) {
+				if (e == "ArrowUp") {
+					if (nowSelectTipIndex == 0) {
+						nowSelectTipIndex = postfixList.length - 1;
+					} else {
+						nowSelectTipIndex--;
+					}
+				}
+				if (e == "ArrowDown") {
+					if (nowSelectTipIndex == postfixList.length - 1) {
+						nowSelectTipIndex = 0;
+					} else {
+						nowSelectTipIndex++;
+					}
+				}
+				if (e == 'Enter') {
+					let lilist3 = ullist.getElementsByTagName("li");
+					sr.value = HtmlUtil.htmlDecode(lilist3[nowSelectTipIndex].innerText);
+					ullist.style.cssText = "display: none";
+					nowSelectTipIndex = 0;
+					flags = 0;
+
+				}
+
+			}
+
+			function cz() { //根据输入补全邮箱地址
+				let a = sr.value;
+				let b = [];
+				let istrue = 0;
+				if (a.indexOf("@") == -1) { //输入的没有@
+					b = postfixList.map(x => a + "@" + x);
+				} else { //输入的有@
+					let c = a.split("@")[0];
+					let d = a.split("@")[1];
+					if (d.length != 0) { //@后输入了字符
+						b.splice(0, b.length);
+						for (let i = 0; i < postfixList.length; i++) {
+							if (postfixList[i].indexOf(d) !== -1) { //输入的字符有相匹配的
+								b.push(c + "@" + postfixList[i]);
+								istrue = 1;
+							}
+						}
+						if (istrue == 0) {
+							for (let i = 0; i < postfixList.length; i++) { //输入的字符没有相匹配的
+								b.push(c + "@" + postfixList[i]);
+							}
+						}
+
+					} else {
+						b = postfixList.map(x => a + x);
+					}
+				}
+				return b;
+			}
+
+			function foo() {
+				let a = sr.value;
+				let bx = cz();
+				if (ullist.getElementsByTagName("li")) {
+					let lilist1 = ullist.getElementsByTagName("li");
+					for (let i = lilist1.length - 1; i >= 0; i--) {
+						ullist.removeChild(lilist1[i])
+					}
+				}
+				if (a != null && a.trim().length != 0 && a.indexOf(" ") == -1 && flags == 1) { //判断不为空字符且无空格
+					for (let i = 0; i < bx.length; i++) { //生成提示框内容
+						let lilist = document.createElement("li");
+						ullist.appendChild(lilist);
+						let htmlutil = HtmlUtil.htmlEncode(bx[i]);
+						lilist.innerText = htmlutil;
+						ullist.style.cssText = "display:block";
+					}
+					let lilist2 = ullist.getElementsByTagName('li');
+					lilist2[nowSelectTipIndex].style.cssText = "background-color:#66ee11";
+				}
+			}
+			let bar = function() { //li鼠标移入效果
+				let lilist = document.getElementsByTagName("li");
+				for (let i = 0; i < lilist.length; i++) {
+					lilist[i].addEventListener("mouseover", function() {
+						this.style.cssText = "color:red;background-color:#00B9F1;line-height:25px";
+					});
+					lilist[i].addEventListener("mouseout", function() {
+						this.style.cssText = "color:'';background-color:'';line-height:''";
+					});
+					ullist.addEventListener('click', function(e) { //点击选中的将内容填充到innput框中
+						if (ullist.getElementsByTagName("li")) {
+							this.style.cssText = "display:none";
+							let a = e.target.innerText;
+							let htmlutil = HtmlUtil.htmlDecode(a);
+							sr.value = HtmlUtil.htmlDecode(a);
+							sr.focus();
+						}
+					});
+				}
+			}
+		</script>
+
+	</body>
+</html>
