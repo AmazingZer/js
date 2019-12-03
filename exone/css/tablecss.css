@@ -1,0 +1,36 @@
+<style>
+			table th {
+				vertical-align: baseline;
+				padding: 5px 15px 5px 5px;
+				background-color: #fff;
+				border: 1px solid #fff;
+				color: #fff;
+			}
+
+			table td {
+				vertical-align: center;
+				padding: 5px 15px 5px 5px;
+				border: 1px solid #666;
+			}
+			#canvas-weapper{
+				padding-top: 10px;
+				padding-bottom: 10px;
+				width: 50%;
+				float:left;
+			}
+			#svg-wrapper{
+				padding-top: 20px;
+				width: 50%;
+				float: left;
+			}
+		
+			#table-wrapper{
+				width: 100%;
+			}
+			table {	
+				border-collapse: collapse;
+				border: 1px solid #000;
+				text-align: center;
+				width: 100%;
+			}
+		</style>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/ife31data.js"></script>
+		<style>
+			table {
+				margin-top: 15px;
+				border-collapse: collapse;
+				border: 1px solid #000;
+				width: 100%;
+				text-align: center;
+			}
+
+			table th {
+				vertical-align: baseline;
+				padding: 5px 15px 5px 5px;
+				background-color: #fff;
+				border: 1px solid #fff;
+				color: #fff;
+			}
+
+			table td {
+				vertical-align: center;
+				padding: 5px 15px 5px 5px;
+				border: 1px solid #666;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<select id="region-select">
+				<option>华东</option>
+				<option>华南</option>
+				<option>华北</option>
+			</select>
+			<select id="product-select">
+				<option>手机</option>
+				<option>笔记本</option>
+				<option>智能音箱</option>
+			</select>
+			<div id="table-wrapper">
+
+			</div>
+		</div>
+		<script>
+			let select1 = document.getElementById("region-select");
+			let select2 = document.getElementById("product-select");
+			let tdiv = document.getElementById("table-wrapper");
+			select1.onchange = function() {
+				maketable();
+			}
+			select2.onchange = function() {
+				maketable();
+			}
+
+			function getdata() {
+				let rigionchoose = select1.value;
+				let productchoose = select2.value;
+				let arr = [];
+				for (let i = 0; i < sourceData.length; i++) {
+					if (rigionchoose == sourceData[i].region && productchoose == sourceData[i].product) {
+						arr.push(sourceData[i]);
+					}
+				}
+				return arr;
+			}
+
+			function maketable() { //渲染表格
+				tdiv.removeChild(tdiv.childNodes[0]);
+				let newTable = document.createElement("table");
+				let arrthes = ["商品", "地区", "1月", "2月", "3月", " 4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
+				let thead = newTable.createTHead();
+				let row = thead.insertRow(0);
+				for (let i = 0; i < arrthes.length; i++) {
+					let cell = row.insertCell(row.cells.length);
+					cell.innerHTML = arrthes[i];
+				}
+
+				let xarr = getdata();
+				for (let i = 0; i < xarr.length; i++) {
+					let tr = newTable.insertRow(newTable.rows.length);
+					let td = tr.insertCell(0);
+					td.innerHTML = xarr[i].product;
+					let td1 = tr.insertCell(1);
+					td1.innerHTML = xarr[i].region;
+					for (let j = 0; j < 12; j++) {
+						let td3 = tr.insertCell(j + 2);
+						td3.innerHTML = xarr[i].sale[j];
+					}
+				}
+
+				tdiv.appendChild(newTable);
+			}
+		</script>
+	</body>
+</html>
