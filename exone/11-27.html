@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- <script src="https://cdn.bootcss.com/jquery/3.4.1/core.js"></script> -->
+		<script src="js/ife31data.js"></script>
+		<script src="js/table.js"></script>
+		<script src="js/checkbox.js"></script>
+		<link rel="stylesheet" href="css/tablecss.css" />	
+	</head>
+	<body>
+		<div id="region-radio-wrapper"></div>
+		<div id="product-radio-wrapper"></div>
+		<div id="table-wrapper">
+
+		</div>
+	</body>
+	<script>
+		let regionbox = document.getElementById("region-radio-wrapper");
+		let productbox = document.getElementById("product-radio-wrapper");
+		let checkbox1 = {
+			boxx: "box1",
+			data: [{
+				value: 1,
+				text: "华东"
+			}, {
+				value: 2,
+				text: "华北"
+			}, {
+				value: 3,
+				text: "华南"
+			}, {
+				value: 4,
+				text: "全选"
+			}]
+		};
+		let checkbox2 = {
+			boxx: "box2",
+			data: [{
+				value: 1,
+				text: "手机"
+			}, {
+				value: 2,
+				text: "笔记本"
+			}, {
+				value: 3,
+				text: "智能音箱"
+			}, {
+				value: 4,
+				text: "全选"
+			}]
+		};
+		foo(checkbox1.boxx, checkbox1.data);
+		foo(checkbox2.boxx, checkbox2.data);
+		
+		regionbox.addEventListener('click', bar); //添加监听事件
+		productbox.addEventListener('click', bar);
+		let tdiv = document.getElementById("table-wrapper");
+
+		function getdata() { //获得所选的信息	
+			let arr = [];
+			for (let i = 0; i < sourceData.length; i++) {
+				if (newarrB.includes(sourceData[i].region) && newarrC.includes(sourceData[i].product)) {
+					arr.push(sourceData[i]);
+				}
+			}
+			return arr;
+		}
+	</script>
+</html>
